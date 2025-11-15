@@ -1,44 +1,485 @@
 <!DOCTYPE html>
-<html>
-<title>Jess Doit</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-body,h1 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
-.bgimg {
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),url('./images/bg.jpg');
-  min-height: 100%;
-  background-position: center;
-  background-size: cover;
-}
-</style>
-<body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ジェス・ドゥイット - JESS DO.IT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #00ff00;
+            font-family: 'DotGothic16', monospace;
+            overflow-x: hidden;
+            image-rendering: pixelated;
+            cursor: crosshair;
+        }
+        
+        /* CRT effect */
+        .crt {
+            animation: flicker 0.15s infinite;
+        }
+        
+        .crt::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+        
+        .crt::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            z-index: 2;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.27861; }
+            5% { opacity: 0.34769; }
+            10% { opacity: 0.23604; }
+            15% { opacity: 0.90626; }
+            20% { opacity: 0.18128; }
+            25% { opacity: 0.83891; }
+            30% { opacity: 0.65583; }
+            35% { opacity: 0.67807; }
+            40% { opacity: 0.26559; }
+            45% { opacity: 0.84693; }
+            50% { opacity: 0.96019; }
+            55% { opacity: 0.08594; }
+            60% { opacity: 0.20313; }
+            65% { opacity: 0.71988; }
+            70% { opacity: 0.53455; }
+            75% { opacity: 0.37288; }
+            80% { opacity: 0.71428; }
+            85% { opacity: 0.70419; }
+            90% { opacity: 0.7003; }
+            95% { opacity: 0.36108; }
+            100% { opacity: 0.24387; }
+        }
+        
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* PC-98 style window */
+        .window {
+            border: 2px solid #00ffff;
+            background: #000080;
+            margin: 20px 0;
+            box-shadow: 4px 4px 0 #000;
+        }
+        
+        .window-title {
+            background: #00ffff;
+            color: #000;
+            padding: 4px 8px;
+            font-size: 14px;
+            border-bottom: 2px solid #00ffff;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .window-content {
+            padding: 15px;
+            color: #fff;
+        }
+        
+        /* ASCII art header */
+        .ascii-header {
+            color: #ff00ff;
+            font-size: 10px;
+            line-height: 1.2;
+            white-space: pre;
+            overflow-x: auto;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        /* Navigation menu */
+        .menu {
+            background: #000;
+            border: 2px solid #ffff00;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        
+        .menu-item {
+            color: #ffff00;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ffff00;
+            cursor: pointer;
+            transition: all 0.1s;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .menu-item:hover {
+            background: #ffff00;
+            color: #000;
+            box-shadow: 2px 2px 0 #ffff00;
+        }
+        
+        .menu-item::before {
+            content: "▶ ";
+        }
+        
+        /* Retro status bar */
+        .status-bar {
+            background: #555;
+            color: #0f0;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-top: 1px solid #777;
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 3;
+        }
+        
+        .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        
+        /* Pixel art decorations */
+        .pixel-art {
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                #ff00ff 0px,
+                #ff00ff 2px,
+                #00ffff 2px,
+                #00ffff 4px,
+                #ffff00 4px,
+                #ffff00 6px
+            );
+            margin: 10px 0;
+        }
+        
+        /* Japanese text styling */
+        .jp-text {
+            color: #ff00ff;
+            font-size: 18px;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        /* Visitor counter */
+        .counter {
+            background: #000;
+            border: 2px solid #0f0;
+            padding: 10px;
+            text-align: center;
+            color: #0f0;
+            margin: 20px 0;
+            font-size: 20px;
+        }
+        
+        /* Scrolling text */
+        .marquee {
+            background: #000;
+            padding: 10px;
+            border: 1px solid #f0f;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+            color: #f0f;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        
+        /* Links */
+        a {
+            color: #00ffff;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ffff;
+        }
+        
+        a:hover {
+            color: #ffff00;
+            border-bottom-color: #ffff00;
+        }
+        
+        /* Boot screen */
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-family: monospace;
+            animation: fadeout 3s forwards;
+        }
+        
+        @keyframes fadeout {
+            0%, 80% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
+        
+        .boot-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Dithered background effect */
+        .dither-bg {
+            background-image: 
+                repeating-linear-gradient(0deg, #000 0px, #000 1px, transparent 1px, transparent 2px),
+                repeating-linear-gradient(90deg, #001a4d 0px, #001a4d 1px, transparent 1px, transparent 2px);
+        }
+        
+        /* Logo styling */
+        .logo-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .logo-frame {
+            display: inline-block;
+            border: 3px solid #ff00ff;
+            padding: 10px;
+            background: #000;
+            box-shadow: 
+                0 0 10px #ff00ff,
+                inset 0 0 10px rgba(255, 0, 255, 0.3),
+                4px 4px 0 #000;
+            position: relative;
+        }
+        
+        .logo-frame::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 1px solid #00ffff;
+            pointer-events: none;
+        }
+        
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            image-rendering: pixelated;
+            filter: contrast(1.1) brightness(1.05);
+            display: block;
+        }
+        
+        .logo-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 255, 0.03) 0px,
+                rgba(0, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="crt dither-bg">
+    <!-- Boot screen -->
+    <div class="boot-screen">
+        <div class="boot-text">
+            <div>PC-9801 SYSTEM BOOT v1.0</div>
+            <div>LOADING JESS DO.IT...</div>
+            <div><span class="blink">█</span></div>
+        </div>
+    </div>
 
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-middle">
-    <h1 class="w3-jumbo w3-animate-top">
-		<img src="./images/logo.png" alt="Logo" style="width:80px;height:80px;object-fit:cover;border-radius:60%;">
-		JESS DOIT
-	</h1>
-    <hr class="w3-border-grey" style="margin:auto;width:0%">
-    <p class="w3-large w3-center">
-	  <a href="https://soundcloud.com/jess-doit-223003857" target="_blank">EXPLORE</a>
-	</p>
-	<hr class="w3-border-grey" style="margin:auto;width:0%">
-    <p class="w3-large w3-center">
-	  <a href="https://github.com/Jess-Doit/jess-doit-archive-engine" target="_blank">EXPAND</a>
-	</p>
-  </div>
-  <div class="w3-display-bottomleft w3-padding-large">
-    Powered by <a href="https://bandcamp.com/jess-doit" target="_blank">Dubs</a>
-  </div>
-</div>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <div class="logo-frame">
+                <img src="imgs/logo.png" 
+                     alt="JESS DO.IT Logo" 
+                     class="logo-img">
+                <div class="logo-scanline"></div>
+            </div>
+        </div>
 
+        <!-- ASCII Art Header -->
+        <div class="ascii-header">
+╔═══════════════════════════════════════╗
+║  ジェスドゥイット - JESS DO.IT       ║
+║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
+║     ░▒▓█ CREATIVE TERMINAL █▓▒░     ║
+╚═══════════════════════════════════════╝
+        </div>
+
+        <!-- Pixel art divider -->
+        <div class="pixel-art"></div>
+
+        <!-- Main window -->
+        <div class="window">
+            <div class="window-title">
+                <span>PROFILE.EXE</span>
+                <span>[_][□][×]</span>
+            </div>
+            <div class="window-content">
+                <p class="jp-text">ようこそ！Welcome to my digital space</p>
+                <br>
+                <p>/// SYSTEM INFORMATION ///</p>
+                <p>NAME: Jess Doit</p>
+                <p>LOCATION: Digital_Realm://LA_NYC</p>
+                <p>STATUS: <span class="blink">● ONLINE</span></p>
+                <p>INTERESTS: Creating, exploring, archiving</p>
+                <br>
+                <p>You have arrived. We have been waiting for you <3</p>
+            </div>
+        </div>
+
+        <!-- Marquee -->
+        <div class="marquee">
+            <span>★☆★ 今日も良い一日を！ Have a great day! ★☆★ いらっしゃいませ ★☆★ Welcome to the machine ★☆★</span>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="menu">
+            <div class="menu-item">01. PORTFOLIO / 作品集</div>
+            <div class="menu-item">02. PROJECTS / プロジェクト</div>
+            <div class="menu-item">03. ARCHIVE / アーカイブ</div>
+            <div class="menu-item">04. CONTACT / 連絡先</div>
+            <div class="menu-item">05. LINKS / リンク</div>
+        </div>
+
+        <!-- Projects window -->
+        <div class="window">
+            <div class="window-title">
+                <span>RECENT_WORK.DAT</span>
+                <span>[_][□][×]</span>
+            </div>
+            <div class="window-content">
+                <p style="color: #ffff00;">▼ LATEST PROJECTS</p>
+                <br>
+                <p>▸ Archive Engine - Digital preservation tools</p>
+                <p>▸ Creative experiments in retro computing</p>
+                <p>▸ Web-based interactive experiences</p>
+                <p>▸ Sound & visual art collaborations</p>
+            </div>
+        </div>
+
+        <!-- Visitor counter -->
+        <div class="counter">
+            <div>訪問者数 / VISITORS</div>
+            <div>000<span class="blink">█</span>11010</div>
+            <div style="font-size: 10px;">Since: 199X.XX.XX</div>
+        </div>
+
+        <!-- Links section -->
+        <div class="window">
+            <div class="window-title">
+                <span>NETWORK.LNK</span>
+                <span>[_][□][×]</span>
+            </div>
+            <div class="window-content">
+                <p style="color: #00ffff;">► EXTERNAL CONNECTIONS</p>
+                <br>
+                <p>✦ <a href="https://github.com/Jess-Doit/jess-doit-archive-engine">GitHub Archive</a></p>
+                <p>✦ <a href="https://soundcloud.com/jess-doit-223003857">SoundCloud</a></p>
+                <p>✦ Email: contact@jessdo.it</p>
+            </div>
+        </div>
+
+        <!-- Footer ASCII -->
+        <div class="ascii-header" style="font-size: 8px; margin-top: 40px;">
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    ░ Crafted with ♥ in the year 202X ░
+    ░ Best viewed on CRT monitors @640px ░
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+        </div>
+
+        <div class="pixel-art"></div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+        <span>ステータス: READY</span>
+        <span>CPU: PC-9801 | RAM: 640KB</span>
+        <span class="blink">●REC</span>
+    </div>
+
+    <script>
+        // Random counter increment on load
+        let counter = Math.floor(Math.random() * 100000);
+        
+        // Add click interactions to menu items
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const text = this.textContent;
+                alert('LOADING: ' + text + '\n\n[Not yet implemented]\nこのセクションは準備中です');
+            });
+        });
+        
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join('') === konamiSequence.join('')) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                alert('秘密のコマンド発見！\nSECRET COMMAND UNLOCKED!');
+            }
+        });
+    </script>
 </body>
 </html>
