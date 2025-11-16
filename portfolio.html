@@ -38,18 +38,13 @@
         </div>
 
         <!-- Page Content -->
-        <div class="window">
-            <div class="window-title">
-                <span>PORTFOLIO.EXE</span>
-                <span>[_][□][×]</span>
-            </div>
-            <div class="window-content">
-                <p style="color: #ffff00;">▼ MY WORK</p>
-                <br>
-                <!-- Add your portfolio content here -->
-                <p>...</p>
-            </div>
-        </div>
+		<div class="window-content">
+			<p style="color: #ffff00;">▼ UPLOAD ARTWORKS</p>
+			<br>
+			<div class="portfolio-gallery" id="gallery">
+				<!-- Images will be generated here by JavaScript -->
+			</div>
+		</div>
 
         <div class="pixel-art"></div>
     </div>
@@ -60,5 +55,29 @@
         <span>CPU: PC-9801 | RAM: 640KB</span>
         <span class="blink">●REC</span>
     </div>
+	
+	<script>
+		// Set the number of images you have
+		const totalImages = 15; // Change this number when you add more images
+		
+		const gallery = document.getElementById('gallery');
+		
+		for (let i = 1; i <= totalImages; i++) {
+			const item = document.createElement('div');
+			item.className = 'portfolio-item';
+			
+			// Format number with leading zeros (001, 002, etc.)
+			const numStr = String(i).padStart(3, '0');
+			
+			item.innerHTML = `
+				<div class="portfolio-item-image">
+					<img src="imgs/pc-98/${i}.png" alt="Img ${i}">
+				</div>
+				<p>IMAGE_${numStr}.BMP</p>
+			`;
+			
+			gallery.appendChild(item);
+		}
+	</script>
 </body>
 </html>
