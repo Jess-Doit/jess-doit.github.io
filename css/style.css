@@ -18,7 +18,7 @@ body {
 
 /* CRT effect */
 .crt {
-	<!-- animation: flicker 0.15s infinite; -->
+	/* animation: flicker 0.15s infinite; */
 }
 
 .crt::before {
@@ -359,6 +359,7 @@ a:hover {
     cursor: pointer;
     object-fit: cover;
     object-position: center;
+    max-width: 100%;
 }
 
 .portfolio-item p {
@@ -366,4 +367,14 @@ a:hover {
     font-size: 12px;
     margin-top: 8px;
     text-align: center;
+}
+
+.portfolio-item-image a {
+    display: block;
+    text-decoration: none;
+    border: none;
+}
+
+.portfolio-item-image a:hover {
+    opacity: 0.9;
 }

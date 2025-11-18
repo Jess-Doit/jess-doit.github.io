@@ -38,11 +38,17 @@
         </div>
 
         <!-- Page Content -->
-		<div class="window-content">
-			<p style="color: #ffff00;">▼ UPLOAD ARTWORKS</p>
-			<br>
-			<div class="portfolio-gallery" id="gallery">
-				<!-- Images will be generated here by JavaScript -->
+		<div class="window">
+			<div class="window-title">
+				<span>PORTFOLIO.EXE</span>
+				<span>[_][□][×]</span>
+			</div>
+			<div class="window-content">
+				<p style="color: #ffff00;">▼ UPLOAD ARTWORKS</p>
+				<br>
+				<div class="portfolio-gallery" id="gallery">
+					<!-- Images will be generated here by JavaScript -->
+				</div>
 			</div>
 		</div>
 
@@ -58,7 +64,7 @@
 	
 	<script>
 		// Set the number of images you have
-		const totalImages = 15; // Change this number when you add more images
+		const totalImages = 15; // Update this number
 		
 		const gallery = document.getElementById('gallery');
 		
@@ -71,7 +77,9 @@
 			
 			item.innerHTML = `
 				<div class="portfolio-item-image">
-					<img src="../imgs/pc-98/${i}.png" alt="Img ${i} loading="lazy"">
+					<a href="../imgs/pc-98/${i}.png" target="_blank">
+						<img src="../imgs/pc-98/thumbnails/${i}.png" alt="Img ${i}" loading="lazy">
+					</a>
 				</div>
 				<p>IMAGE_${numStr}.BMP</p>
 			`;
